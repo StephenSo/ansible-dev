@@ -1,0 +1,16 @@
+- name: Playbook update user and group
+  hosts: renamed, !taz
+  gather_facts: no   # default is yes
+  become: yes
+
+  tasks:
+    - name: Ensure group "funkytown" exists
+      ansible.builtin.group:
+        name: funkytown
+        state: present
+  
+    - name: Add the user 'steve' with a specific uid and a primary group of 'funkytown'
+      ansible.builtin.user:
+        name: steve
+        comment: Steve S
+        group: funkytown
